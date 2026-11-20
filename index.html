@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title id="pageTitle">M&S — لوحة إدارة القائمة | Admin Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+darkMode: 'class',
+theme: {
+extend: {
+fontFamily: {
+sans: ['"Cairo"', '"Tajawal"', 'system-ui', 'sans-serif'],
+},
+colors: {
+obsidian: '#0b0b0d',
+charcoal: '#131317',
+charcoalSoft: '#19191f',
+crimsonDeep: '#5e0d14',
+crimsonRich: '#8b151e',
+crimsonBright: '#b91c28',
+ivory: '#f5f3ef',
+ash: '#a39e98',
+lineDark: 'rgba(245, 243, 239, 0.11)',
+},
+},
+},
+};
+</script>
+<style>
+:root,
+:root[data-theme="dark"] {
+--ground-obsidian: #0b0b0d;
+--surface-charcoal: #131317;
+--surface-soft: #19191f;
+--text-ivory: #f5f3ef;
+--text-ash: #a39e98;
+--accent-crimson: #c92a37;
+--border-hairline: rgba(245, 243, 239, 0.11);
+--header-bg: rgba(11, 11, 13, 0.9);
+--toast-bg: #18181d;
+--page-bg-image:
+radial-gradient(circle at 86% 0%, rgba(139, 21, 30, 0.18), transparent 44%),
+radial-gradient(circle at 12% 18%, rgba(185, 28, 40, 0.08), transparent 36%),
+linear-gradient(180deg, #0b0b0d 0%, #0e0e11 100%);
+--card-surface: linear-gradient(180deg, #15151a 0%, #111115 100%);
+--pill-bg: #18181e;
+--pill-text: #d6d1ca;
+--pill-hover-bg: #22222a;
+--pill-hover-text: #f5f3ef;
+--btn-crimson-grad: linear-gradient(135deg, #991620 0%, #730e16 55%, #4d080e 100%);
+--btn-crimson-hover: linear-gradient(135deg, #b51d29 0%, #86121b 60%, #5c0b12 100%);
+--btn-crimson-shadow: 0 6px 18px rgba(139, 21, 30, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+--btn-crimson-hover-shadow: 0 8px 22px rgba(185, 28, 40, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+:root[data-theme="light"] {
+--ground-obsidian: #f7f4ef;
+--surface-charcoal: #ffffff;
+--surface-soft: #f1ece4;
+--text-ivory: #161414;
+--text-ash: #5f5955;
+--accent-crimson: #9e1621;
+--border-hairline: rgba(22, 20, 20, 0.12);
+--header-bg: rgba(247, 244, 239, 0.92);
+--toast-bg: #18181d;
+--page-bg-image:
+radial-gradient(circle at 88% 0%, rgba(158, 22, 33, 0.08), transparent 45%),
+radial-gradient(circle at 10% 15%, rgba(22, 20, 20, 0.04), transparent 38%),
+linear-gradient(180deg, #f7f4ef 0%, #f3efe8 100%);
+--card-surface: linear-gradient(180deg, #ffffff 0%, #fbf9f5 100%);
+--pill-bg: #f1ece4;
+--pill-text: #2c2827;
+--pill-hover-bg: #e7e0d5;
+--pill-hover-text: #161414;
+--btn-crimson-grad: linear-gradient(135deg, #a81824 0%, #83111a 55%, #5f0b12 100%);
+--btn-crimson-hover: linear-gradient(135deg, #be1e2b 0%, #96141f 60%, #700e16 100%);
+--btn-crimson-shadow: 0 6px 16px rgba(158, 22, 33, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+--btn-crimson-hover-shadow: 0 8px 20px rgba(158, 22, 33, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+body {
+background-color: var(--ground-obsidian);
+color: var(--text-ivory);
+background-image: var(--page-bg-image);
+min-height: 100vh;
+transition: background-color 0.25s ease, color 0.25s ease;
+}
+.theme-header {
+background-color: var(--header-bg);
+border-color: var(--border-hairline);
+}
+.theme-surface-card {
+background-color: var(--surface-soft);
+border-color: var(--border-hairline);
+}
+.theme-hairline-border {
+border-color: var(--border-hairline);
+}
+.theme-muted-text {
+color: var(--text-ash);
+}
+.theme-accent-text {
+color: var(--accent-crimson);
+}
+.editorial-surface {
+background: var(--card-surface);
+border: 1px solid var(--border-hairline);
+transition: border-color 0.22s ease, background 0.25s ease;
+}
+.editorial-surface:hover {
+border-color: rgba(185, 28, 40, 0.38);
+}
+.metallic-crimson-btn {
+background: var(--btn-crimson-grad);
+color: #f5f3ef;
+border: 1px solid rgba(255, 255, 255, 0.14);
+box-shadow: var(--btn-crimson-shadow);
+transition: transform 0.16s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.metallic-crimson-btn:hover {
+background: var(--btn-crimson-hover);
+box-shadow: var(--btn-crimson-hover-shadow);
+transform: translateY(-1px);
+}
+.metallic-crimson-btn:active {
+transform: translateY(0);
+}
+.theme-pill-btn {
+background-color: var(--pill-bg);
+color: var(--pill-text);
+border: 1px solid var(--border-hairline);
+}
+.theme-pill-btn:hover {
+background-color: var(--pill-hover-bg);
+color: var(--pill-hover-text);
+}
+</style>
+</head>
+<body class="pb-16 selection:bg-crimsonRich selection:text-ivory">
+<header class="sticky top-0 z-30 backdrop-blur-md border-b theme-header transition-colors duration-250">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl theme-surface-card border border-crimsonRich/45 flex items-center justify-center shrink-0">
+<span class="font-extrabold text-sm tracking-widest">M&S</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-2.5">
+<h1 id="headerTitle" class="text-base sm:text-xl font-extrabold truncate">
+لوحة إدارة منيو M&S
+</h1>
+<span id="firebaseBadge" class="text-[11px] font-bold px-2.5 py-0.5 rounded-md border theme-hairline-border theme-accent-text shrink-0">
+وضع محلي
+</span>
+</div>
+<p id="headerSubtitle" class="text-xs theme-muted-text truncate">
+إدارة كاملة للأصناف، الأقسام، هوية المتجر، والمزامنة مع Firebase Firestore
+</p>
+</div>
+</div>
+<div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+<button
+id="langToggleBtn"
+type="button"
+onclick="toggleLanguage()"
+class="theme-pill-btn px-3 py-2 rounded-xl text-xs font-extrabold cursor-pointer transition"
+>
+EN
+</button>
+<button
+id="themeToggleBtn"
+type="button"
+onclick="toggleTheme()"
+class="theme-pill-btn w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center cursor-pointer transition"
+>
+<span id="themeIcon" class="text-sm sm:text-base leading-none" aria-hidden="true">☀</span>
+</button>
+<button
+id="signOutBtn"
+type="button"
+onclick="handleAdminSignOut()"
+class="hidden theme-pill-btn px-3 py-2 rounded-xl text-xs font-bold cursor-pointer transition"
+>
+تسجيل الخروج
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-7 space-y-8">
+<section id="loginGateSection" class="max-w-xl mx-auto editorial-surface rounded-2xl p-6 sm:p-8 space-y-5">
+<div class="space-y-1.5">
+<span id="loginEyebrow" class="text-xs font-bold theme-accent-text block">
+صلاحية إدارة M&S
+</span>
+<h2 id="loginHeading" class="text-2xl font-extrabold">
+تسجيل دخول الأدمن
+</h2>
+<p id="loginDesc" class="text-xs sm:text-sm theme-muted-text leading-relaxed">
+سجّل الدخول بحساب الأدمن في Firebase Authentication للتحكم الكامل بقائمة الطعام والأقسام والإعدادات.
+</p>
+</div>
+<div id="loginStatusBanner" class="rounded-xl p-3.5 text-xs theme-surface-card border theme-muted-text leading-relaxed">
+</div>
+<form id="adminLoginForm" onsubmit="handleAdminLogin(event)" class="space-y-4">
+<div>
+<label id="lblLoginEmail" for="loginEmail" class="block text-xs font-bold mb-1.5">
+البريد الإلكتروني
+</label>
+<input
+id="loginEmail"
+type="email"
+required
+placeholder="samirsnobar321@gmail.com"
+class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2.5 text-sm"
+/>
+</div>
+<div>
+<label id="lblLoginPassword" for="loginPassword" class="block text-xs font-bold mb-1.5">
+كلمة المرور
+</label>
+<input
+id="loginPassword"
+type="password"
+required
+placeholder="••••••••"
+class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2.5 text-sm"
+/>
+</div>
+<p id="loginErrorText" class="text-xs font-bold text-[#dc2626] hidden"></p>
+<div class="flex flex-wrap items-center gap-3 pt-1">
+<button
+id="btnLoginSubmit"
+type="submit"
+class="flex-1 metallic-crimson-btn py-2.5 px-5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer"
+>
+دخول لوحة الإدارة
+</button>
+<button
+id="btnLocalDemo"
+type="button"
+onclick="enterLocalAdminSession()"
+class="theme-pill-btn py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold cursor-pointer"
+>
+دخول محلي للمعاينة
+</button>
+</div>
+</form>
+</section>
+<section id="adminWorkspaceSection" class="hidden space-y-7">
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="editorial-surface rounded-2xl p-4">
+<span id="statItemsLabel" class="text-xs theme-muted-text block">إجمالي الأصناف</span>
+<span id="statItemsCount" class="text-2xl font-extrabold tabular-nums mt-1 block">0</span>
+</div>
+<div class="editorial-surface rounded-2xl p-4">
+<span id="statAvailableLabel" class="text-xs theme-muted-text block">الأصناف المتوفرة</span>
+<span id="statAvailableCount" class="text-2xl font-extrabold tabular-nums mt-1 block theme-accent-text">0</span>
+</div>
+<div class="editorial-surface rounded-2xl p-4">
+<span id="statCategoriesLabel" class="text-xs theme-muted-text block">عدد الأقسام</span>
+<span id="statCategoriesCount" class="text-2xl font-extrabold tabular-nums mt-1 block">0</span>
+</div>
+<div class="editorial-surface rounded-2xl p-4">
+<span id="statCurrencyLabel" class="text-xs theme-muted-text block">العملة المعتمدة</span>
+<span id="statCurrencyValue" class="text-2xl font-extrabold mt-1 block">ل.س</span>
+</div>
+</div>
+<div class="flex flex-wrap items-center gap-2 border-b theme-hairline-border pb-4">
+<button
+id="tabBtnItems"
+type="button"
+onclick="switchAdminSection('items')"
+class="metallic-crimson-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer"
+>
+إدارة المنتجات والأصناف
+</button>
+<button
+id="tabBtnCategories"
+type="button"
+onclick="switchAdminSection('categories')"
+class="theme-pill-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer"
+>
+إدارة الأقسام
+</button>
+<button
+id="tabBtnBrand"
+type="button"
+onclick="switchAdminSection('brand')"
+class="theme-pill-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer"
+>
+هوية المتجر والإعدادات
+</button>
+<button
+id="tabBtnFirebase"
+type="button"
+onclick="switchAdminSection('firebase')"
+class="theme-pill-btn px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer"
+>
+إعدادات Firebase والمزامنة
+</button>
+</div>
+<div id="sectionItems" class="space-y-6">
+<div class="editorial-surface rounded-2xl p-5 sm:p-6 space-y-5">
+<div class="flex items-center justify-between gap-3 border-b theme-hairline-border pb-3.5">
+<h2 id="productFormTitle" class="text-base sm:text-lg font-extrabold">
+إضافة منتج جديد
+</h2>
+<button
+id="cancelProductEditBtn"
+type="button"
+onclick="resetProductForm()"
+class="hidden theme-pill-btn px-3 py-1.5 rounded-lg text-xs font-bold cursor-pointer"
+>
+إلغاء التعديل
+</button>
+</div>
+<form id="productEditorForm" onsubmit="handleSaveProduct(event)" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<input type="hidden" id="editingProductId" value="" />
+<div>
+<label id="lblProdNameAr" for="prodNameAr" class="block text-xs font-bold mb-1">اسم المنتج (عربي)</label>
+<input id="prodNameAr" type="text" required placeholder="مثلاً: صحن شاورما عربي دبل" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div>
+<label id="lblProdNameEn" for="prodNameEn" class="block text-xs font-bold mb-1">اسم المنتج (إنجليزي)</label>
+<input id="prodNameEn" type="text" required placeholder="e.g. Double Arabic Shawarma Platter" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div>
+<label id="lblProdPrice" for="prodPrice" class="block text-xs font-bold mb-1">السعر (ل.س)</label>
+<input id="prodPrice" type="number" min="0" step="100" required placeholder="68000" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm tabular-nums" />
+</div>
+<div>
+<label id="lblProdCategory" for="prodCategory" class="block text-xs font-bold mb-1">القسم</label>
+<select id="prodCategory" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm"></select>
+</div>
+<div>
+<label id="lblProdBadgeAr" for="prodBadgeAr" class="block text-xs font-bold mb-1">شارة / وسم (عربي)</label>
+<input id="prodBadgeAr" type="text" placeholder="اختيار اليوم / مقرمش" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div>
+<label id="lblProdBadgeEn" for="prodBadgeEn" class="block text-xs font-bold mb-1">شارة / وسم (إنجليزي)</label>
+<input id="prodBadgeEn" type="text" placeholder="Today's Pick / Crispy" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div class="md:col-span-2">
+<label id="lblProdImage" for="prodImageUrl" class="block text-xs font-bold mb-1">رابط صورة المنتج (Image URL)</label>
+<input id="prodImageUrl" type="url" placeholder="https://images.unsplash.com/..." class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div class="flex flex-col justify-end gap-2">
+<label class="inline-flex items-center gap-2 text-xs font-bold cursor-pointer">
+<input id="prodAvailable" type="checkbox" checked class="w-4 h-4 accent-[#b91c28]" />
+<span id="lblProdAvailable">متوفر للطلب حالياً</span>
+</label>
+<label class="inline-flex items-center gap-2 text-xs font-bold cursor-pointer">
+<input id="prodFeatured" type="checkbox" class="w-4 h-4 accent-[#b91c28]" />
+<span id="lblProdFeatured">عرض كطبق مميز في الواجهة الرئيسية</span>
+</label>
+</div>
+<div>
+<label id="lblProdDescAr" for="prodDescAr" class="block text-xs font-bold mb-1">الوصف بالعربية</label>
+<textarea id="prodDescAr" rows="2" required placeholder="المكونات وطريقة التحضير بالعربية..." class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm resize-none"></textarea>
+</div>
+<div class="md:col-span-2">
+<label id="lblProdDescEn" for="prodDescEn" class="block text-xs font-bold mb-1">الوصف بالإنجليزية</label>
+<textarea id="prodDescEn" rows="2" required placeholder="Ingredients and preparation in English..." class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm resize-none"></textarea>
+</div>
+<div class="md:col-span-2 lg:col-span-3 flex justify-end pt-1">
+<button id="btnSaveProduct" type="submit" class="metallic-crimson-btn px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer">
+حفظ المنتج
+</button>
+</div>
+</form>
+</div>
+<div class="editorial-surface rounded-2xl p-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+<div class="flex-1">
+<input
+id="adminSearchInput"
+type="search"
+oninput="renderProductsAdminList()"
+placeholder="ابحث باسم المنتج بالعربية أو الإنجليزية..."
+class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-xs sm:text-sm"
+/>
+</div>
+<div class="sm:w-56">
+<select
+id="adminFilterCategorySelect"
+onchange="renderProductsAdminList()"
+class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-xs sm:text-sm"
+></select>
+</div>
+</div>
+<div id="adminProductsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+</div>
+<div id="sectionCategories" class="hidden space-y-6">
+<div class="editorial-surface rounded-2xl p-5 sm:p-6 space-y-4">
+<h2 id="catFormHeading" class="text-base sm:text-lg font-extrabold border-b theme-hairline-border pb-3">
+إضافة قسم جديد
+</h2>
+<form id="addCategoryForm" onsubmit="handleAddCategory(event)" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+<div>
+<label id="lblNewCatAr" for="newCatAr" class="block text-xs font-bold mb-1">اسم القسم (عربي)</label>
+<input id="newCatAr" type="text" required placeholder="مثلاً: مقبلات باردة" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3 py-2 text-sm" />
+</div>
+<div>
+<label id="lblNewCatEn" for="newCatEn" class="block text-xs font-bold mb-1">اسم القسم (إنجليزي)</label>
+<input id="newCatEn" type="text" required placeholder="e.g. Cold Appetizers" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3 py-2 text-sm" />
+</div>
+<div>
+<label id="lblNewCatSlug" for="newCatSlug" class="block text-xs font-bold mb-1">المعرّف (Slug / Key)</label>
+<input id="newCatSlug" type="text" placeholder="cold-appetizers" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3 py-2 text-sm font-mono" />
+</div>
+<div class="flex items-end">
+<button id="btnAddCategory" type="submit" class="w-full metallic-crimson-btn py-2 px-4 rounded-xl text-xs sm:text-sm font-bold cursor-pointer">
+إضافة قسم
+</button>
+</div>
+</form>
+</div>
+<div id="adminCategoriesList" class="space-y-3"></div>
+</div>
+<div id="sectionBrand" class="hidden">
+<form id="brandSettingsForm" onsubmit="handleSaveBrandSettings(event)" class="editorial-surface rounded-2xl p-5 sm:p-6 space-y-5">
+<h2 id="brandFormHeading" class="text-base sm:text-lg font-extrabold border-b theme-hairline-border pb-3">
+إعدادات هوية M&S والعملة والواتساب
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label id="lblBrandNameAr" for="brandNameAr" class="block text-xs font-bold mb-1">اسم المطعم (عربي)</label>
+<input id="brandNameAr" type="text" required class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div>
+<label id="lblBrandNameEn" for="brandNameEn" class="block text-xs font-bold mb-1">اسم المطعم (إنجليزي)</label>
+<input id="brandNameEn" type="text" required class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div>
+<label id="lblBrandTaglineAr" for="brandTaglineAr" class="block text-xs font-bold mb-1">العبارة التعريفية (عربي)</label>
+<input id="brandTaglineAr" type="text" required class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div>
+<label id="lblBrandTaglineEn" for="brandTaglineEn" class="block text-xs font-bold mb-1">العبارة التعريفية (إنجليزي)</label>
+<input id="brandTaglineEn" type="text" required class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div>
+<label id="lblCurrencyAr" for="currencyAr" class="block text-xs font-bold mb-1">رمز العملة (عربي)</label>
+<input id="currencyAr" type="text" required class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div>
+<label id="lblCurrencyEn" for="currencyEn" class="block text-xs font-bold mb-1">رمز العملة (إنجليزي)</label>
+<input id="currencyEn" type="text" required class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm" />
+</div>
+<div class="md:col-span-2">
+<label id="lblWhatsappNumber" for="whatsappNumberInput" class="block text-xs font-bold mb-1">رقم واتساب الطلبات الافتراضي (مع الرمز الدولي)</label>
+<input id="whatsappNumberInput" type="text" required dir="ltr" placeholder="963940242745" class="w-full rounded-xl theme-surface-card border focus:border-[#b91c28] focus:outline-none px-3.5 py-2 text-sm font-mono" />
+</div>
+</div>
+<div class="flex justify-end pt-2">
+<button id="btnSaveBrand" type="submit" class="metallic-crimson-btn px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer">
+حفظ إعدادات المتجر
+</button>
+</div>
+</form>
+</div>
+<div id="sectionFirebase" class="hidden space-y-6">
+<form id="firebaseConfigForm" onsubmit="handleSaveFirebaseConfig(event)" class="editorial-surface rounded-2xl p-5 sm:p-6 space-y-4">
+<div class="border-b theme-hairline-border pb-3">
+<h2 id="fbConfigTitle" class="text-base sm:text-lg font-e
